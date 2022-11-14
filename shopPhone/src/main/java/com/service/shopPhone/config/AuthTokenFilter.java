@@ -46,7 +46,7 @@ public class AuthTokenFilter  extends OncePerRequestFilter{
         }
       
         private String getUserId(HttpServletRequest request) {
-          String headerAuth = request.getHeader("api-key");
+          String headerAuth = request.getHeader("X-API-Key");
       
           if (StringUtils.hasText(headerAuth)) {
             return headerAuth;

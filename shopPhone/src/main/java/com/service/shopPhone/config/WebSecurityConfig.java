@@ -1,9 +1,11 @@
 package com.service.shopPhone.config;
 
+import org.modelmapper.ModelMapper;
 // import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -45,10 +47,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		return new BCryptPasswordEncoder();
 	}
 
-	// @Bean
-	// public ModelMapper modelMapper() {
-	// 	return new ModelMapper();
-	// }
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -57,6 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
 			.antMatchers("/api/roles/**").permitAll()
+			.antMatchers("/api/swagger-ui/**", "/v3/api-docs/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/brands").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

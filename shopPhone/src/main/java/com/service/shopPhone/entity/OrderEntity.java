@@ -1,6 +1,6 @@
 package com.service.shopPhone.entity;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "users")
+@Table(name = "orders")
 @Entity
 @Getter
 @Setter
@@ -27,39 +27,31 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
-public class UserEntity {
-
+public class OrderEntity {
+    
     @Id
     private UUID id;
-    
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "phone")
-    private String phone;
-
-    @Column(name ="is_deleted")
-    private Boolean isDeleted;
-
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
-    @OneToOne
-    @JoinColumn(name="role_id", referencedColumnName = "id")
-    private RoleEntity role;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private OffsetDateTime createdAt;
 
-    @Column(name = "updated_at")
-    private Date updatedAt;
+    @Column(name = "notes")
+    private String note;
+
+    @Column(name = "total_price")
+    private Double totalPrice;
+
+    @Column(name = "type_payment")
+    private String typePayment;
+
+    @OneToOne
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    private CartEntity cart;
+
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private AddressEntity address;
+
+    @Column(name = "status")
+    private String status;
 }

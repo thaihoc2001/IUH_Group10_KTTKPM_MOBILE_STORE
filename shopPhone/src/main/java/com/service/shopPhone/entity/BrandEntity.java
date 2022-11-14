@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "roles")
+@Table(name = "brands")
 @Entity
 @Getter
 @Setter
@@ -24,11 +24,14 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
-public class RoleEntity {
-    
+public class BrandEntity {
+
     @Id
     private UUID id;
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 }

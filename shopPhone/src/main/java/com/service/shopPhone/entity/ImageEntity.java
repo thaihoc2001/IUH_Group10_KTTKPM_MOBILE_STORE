@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "roles")
+@Table(name = "images")
 @Entity
 @Getter
 @Setter
@@ -24,11 +26,18 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
-public class RoleEntity {
+public class ImageEntity {
     
     @Id
     private UUID id;
+    
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private ProductEntity product;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name="url")
+    private String url;
+
+    @Column(name="type")
+    private String type;
 }

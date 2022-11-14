@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "roles")
+@Table(name = "address")
 @Entity
 @Getter
 @Setter
@@ -24,11 +26,27 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
-public class RoleEntity {
+public class AddressEntity {
     
     @Id
     private UUID id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "state")
+    private String state;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "detail")
+    private String detail;
+
+    @Column(name = "isoCode")
+    private String code;
+
+    @Column(nullable = false, name = "is_active")
+    private Boolean isActive;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private UserEntity user;
 }

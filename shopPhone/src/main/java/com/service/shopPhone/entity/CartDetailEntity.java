@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "roles")
+@Table(name = "cart_detail")
 @Entity
 @Getter
 @Setter
@@ -24,11 +26,20 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
-public class RoleEntity {
+public class CartDetailEntity {
     
     @Id
     private UUID id;
 
-    @Column(name = "name")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name="product_id", referencedColumnName = "id")
+    private ProductEntity product;
+
+    @ManyToOne
+    @JoinColumn(name="cart_id", referencedColumnName = "id")
+    private CartEntity cart;
+
+    @Column(name = "quantity")
+    private int quantity;
+
 }
