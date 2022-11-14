@@ -29,7 +29,18 @@ const updateUser = async (req, res) => {
     }
 }
 
+const getMe = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await UserService.getUserById(userId);
+        return res.status(200).json(user);
+    }catch (err){
+        return res.status(400).json(err);
+    }
+}
+
 module.exports = {
     getUser,
-    updateUser
+    updateUser,
+    getMe
 }
