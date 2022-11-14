@@ -44,11 +44,20 @@ const updateUser = async (user_id, user) => {
         throw error;
     }
 }
+getAllUsers = async () => {
+    try {
+        const users = await Users.findAll();
+        return users;
+    } catch (error) {
+        throw error;
+    }
+}
 
 module.exports = {
     getUserById,
     createUser,
     getUserByUsername,
-    updateUser
+    updateUser,
+    getAllUsers
 }
 
