@@ -8,7 +8,22 @@ const getUserById = async (userId) => {
     return user;
 }
 
+const createUser = async (user) => {
+    try {
+        if (user) {
+            const newUser = await Users.create(user);
+            return newUser;
+        } else {
+            throw Error("User not found!");
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+
 module.exports = {
-    getUserById
+    getUserById,
+    createUser
 }
 
