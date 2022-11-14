@@ -40,6 +40,7 @@ public class BrandDomainService {
         AddBrandCommandResultModel result = addBrandCommand.execute(
             AddBrandCommandInputModel.builder().name(name).build()
         );
+        System.out.println("demo");
         return result.getBrandId();
     }
 
