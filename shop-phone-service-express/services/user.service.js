@@ -8,6 +8,14 @@ const getUserById = async (userId) => {
     return user;
 }
 
+const getUserByUsername = async (username) => {
+    const options = {
+        where: { username: username }
+    }
+    const user = await Users.findOne(options);
+    return user;
+}
+
 const createUser = async (user) => {
     try {
         if (user) {
@@ -24,6 +32,7 @@ const createUser = async (user) => {
 
 module.exports = {
     getUserById,
-    createUser
+    createUser,
+    getUserByUsername
 }
 
