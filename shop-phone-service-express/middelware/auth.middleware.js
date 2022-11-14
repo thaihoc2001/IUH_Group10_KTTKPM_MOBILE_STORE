@@ -1,4 +1,4 @@
-const {Users, Account} = require('../model');
+const { Users, Roles } = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
@@ -12,7 +12,7 @@ const isAuthenticated = async (req, res, next) => {
             return next();
         }
         return res.status(401).json({message: 'User not exist!'});
-    }catch (err) {
+    } catch (err) {
         return res.status(401).json(err);
     }
 }

@@ -29,10 +29,26 @@ const createUser = async (user) => {
     }
 }
 
+const updateUser = async (user_id, user) => {
+    try {
+        if (user_id && user) {
+            const options = {
+                where: { id: user_id }
+            }
+            const updatedUser = await Users.update(user, options);
+            return updatedUser;
+        } else {
+            throw Error("User not found!");
+        }
+    } catch (error) {
+        throw error;
+    }
+}
 
 module.exports = {
     getUserById,
     createUser,
-    getUserByUsername
+    getUserByUsername,
+    updateUser
 }
 
