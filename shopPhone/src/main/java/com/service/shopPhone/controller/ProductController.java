@@ -2,18 +2,22 @@ package com.service.shopPhone.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.service.shopPhone.models.Response;
+import com.service.shopPhone.models.StatusResponseModel;
 import com.service.shopPhone.models.product.AddProductRequestModel;
 import com.service.shopPhone.models.product.AddProductResponseModel;
 import com.service.shopPhone.service.product.IProductService;
@@ -43,5 +47,11 @@ public class ProductController {
     @PostMapping("")
     public Response<AddProductResponseModel> createProduct(@RequestBody AddProductRequestModel requestModel) {
         return productService.addProduct(requestModel);
+    }
+
+    @PutMapping("/{productId}")
+    public Response<StatusResponseModel> updateProduct(@RequestBody AddProductRequestModel requestModel, @PathVariable String productId){
+
+        return productService.updateProduct(requestModel, UUID.fromString(productId));
     }
 }

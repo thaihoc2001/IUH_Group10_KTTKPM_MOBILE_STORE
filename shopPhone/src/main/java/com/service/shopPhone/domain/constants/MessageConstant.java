@@ -25,4 +25,6 @@ public class MessageConstant {
     public static final String BRAND_NOT_EXISTS = "brand not exists";
 
     public static final String INTERNAL_SERVER_ERROR = "Internal server error";
+
+    public static final String PRODUCT_NOT_EXISTS = "Product not exists";
 }
