@@ -3,18 +3,32 @@ package com.service.shopPhone.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.service.shopPhone.models.Response;
+import com.service.shopPhone.models.product.AddProductRequestModel;
+import com.service.shopPhone.models.product.AddProductResponseModel;
+import com.service.shopPhone.service.product.IProductService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
     
+    private final IProductService productService;
+
+    @Autowired
+    public ProductController(IProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping("")
     public ResponseEntity<?> createOrder(){
@@ -24,5 +38,10 @@ public class ProductController {
         Map<String, String> res = new HashMap<>();
         res.put("user", username);
         return ResponseEntity.ok().body(res);
+    }
+
+    @PostMapping("")
+    public Response<AddProductResponseModel> createProduct(@RequestBody AddProductRequestModel requestModel) {
+        return productService.addProduct(requestModel);
     }
 }
