@@ -58,4 +58,8 @@ public class ProductDomainService {
             DeteleProductCommandInputModel.builder().arrayProductId(arrayProductId).build()
         ).isSuccess();
     }
+
+    public ProductEntity getById(UUID productId) {
+        return productQuery.getProductById(productId);
+    }
 }

@@ -8,6 +8,7 @@ import com.service.shopPhone.models.product.AddProductRequestModel;
 import com.service.shopPhone.models.product.AddProductResponseModel;
 import com.service.shopPhone.models.product.DeleteProductRequestModel;
 import com.service.shopPhone.models.product.GetAllProductRequestModel;
+import com.service.shopPhone.models.product.GetDetailProductResponseModel;
 import com.service.shopPhone.models.product.GetListProductResponseModel;
 
 public interface IProductService {
@@ -17,5 +18,6 @@ public interface IProductService {
 
     Response<GetListProductResponseModel> getAll(GetAllProductRequestModel requestModel);
     Response<StatusResponseModel> deleteProduct(DeleteProductRequestModel requestModel);
+    Response<GetDetailProductResponseModel> getDetailProduct(UUID productId);
 
 }

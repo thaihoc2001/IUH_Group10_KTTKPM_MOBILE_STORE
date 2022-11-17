@@ -19,6 +19,7 @@ import com.service.shopPhone.models.product.AddProductRequestModel;
 import com.service.shopPhone.models.product.AddProductResponseModel;
 import com.service.shopPhone.models.product.DeleteProductRequestModel;
 import com.service.shopPhone.models.product.GetAllProductRequestModel;
+import com.service.shopPhone.models.product.GetDetailProductResponseModel;
 import com.service.shopPhone.models.product.GetListProductResponseModel;
 import com.service.shopPhone.models.product.ProductResponseModel;
 import com.service.shopPhone.utility.RequestCorrelation;
@@ -85,6 +86,16 @@ public class ProductService implements IProductService{
         return Response.<StatusResponseModel>builder()
             .id(RequestCorrelation.getRequestId())
             .data(StatusResponseModel.builder().success(result).build())
+            .build();
+    }
+
+    @Override
+    public Response<GetDetailProductResponseModel> getDetailProduct(UUID productId) {
+        ProductEntity result = productDomainService.getById(productId);
+        GetDetailProductResponseModel res = modelMapper.map(result, GetDetailProductResponseModel.class);
+        return Response.<GetDetailProductResponseModel>builder()
+            .id(RequestCorrelation.getRequestId())
+            .data(res)
             .build();
     }
     

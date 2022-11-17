@@ -26,6 +26,7 @@ import com.service.shopPhone.models.product.AddProductRequestModel;
 import com.service.shopPhone.models.product.AddProductResponseModel;
 import com.service.shopPhone.models.product.DeleteProductRequestModel;
 import com.service.shopPhone.models.product.GetAllProductRequestModel;
+import com.service.shopPhone.models.product.GetDetailProductResponseModel;
 import com.service.shopPhone.models.product.GetListProductResponseModel;
 import com.service.shopPhone.service.product.IProductService;
 
@@ -74,5 +75,10 @@ public class ProductController {
     @DeleteMapping("")
     public Response<StatusResponseModel> deleteProducts(@RequestBody DeleteProductRequestModel requestModel){
         return productService.deleteProduct(requestModel);
+    }
+
+    @GetMapping("/{id}")
+    public Response<GetDetailProductResponseModel> getDetail(@PathVariable UUID id) {
+        return productService.getDetailProduct(id);
     }
 }
