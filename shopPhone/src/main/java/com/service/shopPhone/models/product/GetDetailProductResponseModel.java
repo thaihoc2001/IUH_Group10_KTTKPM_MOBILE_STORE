@@ -1,6 +1,9 @@
 package com.service.shopPhone.models.product;
 
+import java.util.List;
 import java.util.UUID;
+
+import com.service.shopPhone.models.image.ImageResponseModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,4 +30,5 @@ public class GetDetailProductResponseModel {
     private String frontCamera;
     private String brandName;
     private int quantity;
+    private List<ImageResponseModel> images;
 }

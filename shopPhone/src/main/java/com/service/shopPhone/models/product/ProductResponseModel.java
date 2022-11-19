@@ -25,4 +25,5 @@ public class ProductResponseModel {
     private String frontCamera;
     private String brandName;
     private int quantity;
+    private String imageMain;
 }
