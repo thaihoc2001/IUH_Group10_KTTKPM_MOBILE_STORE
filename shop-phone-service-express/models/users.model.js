@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     Users.init({
         id: {
             type: DataTypes.UUID,
-            primaryKey: true
+            primaryKey: true,
+            defaultValue: DataTypes.UUIDV4
         },
         email: {
             type: DataTypes.STRING,
