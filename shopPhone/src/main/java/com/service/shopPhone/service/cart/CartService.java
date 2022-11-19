@@ -9,6 +9,7 @@ import com.service.shopPhone.domain.services.cart.CartDomainSevice;
 import com.service.shopPhone.models.Response;
 import com.service.shopPhone.models.StatusResponseModel;
 import com.service.shopPhone.models.cart.AddToCartRequestModel;
+import com.service.shopPhone.models.cart.CartResponseModel;
 import com.service.shopPhone.utility.RequestCorrelation;
 
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,15 @@ public class CartService implements ICartService{
         return Response.<StatusResponseModel>builder()
             .id(RequestCorrelation.getRequestId())
             .data(StatusResponseModel.builder().success(result).build())
+            .build();
+    }
+
+    @Override
+    public Response<CartResponseModel> getCartByUser(String username) {
+        CartResponseModel cart =  cartDomainSevice.getCartByUser(username);
+        return Response.<CartResponseModel>builder()
+            .id(RequestCorrelation.getRequestId())
+            .data(cart)
             .build();
     }
     

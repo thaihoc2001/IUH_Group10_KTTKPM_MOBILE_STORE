@@ -5,6 +5,7 @@ public enum ErrorCodes {
     USER_NOT_EXIST(404001),
     BRAND_NOT_EXISTS(404002),
     PRODUCT_NOT_EXISTS(404003),
+    ORDER_NOT_EXISTS(404004),
   
     // Bad Request group (400XXX)
     INVALID_FILE(400001),

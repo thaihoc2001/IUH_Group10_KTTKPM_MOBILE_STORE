@@ -25,6 +25,7 @@ import com.service.shopPhone.domain.exceptions.BrandNotExistsException;
 import com.service.shopPhone.domain.exceptions.InternalServerErrorException;
 import com.service.shopPhone.domain.exceptions.InvalidFileException;
 import com.service.shopPhone.domain.exceptions.InvalidInputStringException;
+import com.service.shopPhone.domain.exceptions.OrderNotExistsException;
 import com.service.shopPhone.domain.exceptions.ProductNotExistsException;
 import com.service.shopPhone.domain.exceptions.ValidateMpinNotAllowedException;
 import com.service.shopPhone.domain.exceptions.ValidateNidTooManyException;
@@ -123,7 +124,8 @@ public class GlobalControllerExceptionHandler {
 
   @ExceptionHandler({
     BrandNotExistsException.class,
-    ProductNotExistsException.class
+    ProductNotExistsException.class,
+    OrderNotExistsException.class
   })
   public ResponseEntity<ErrorResponse> handleNotFoundExceptions(BaseException exception) {
     ResponseErrorItem responseErrorItem = ResponseErrorItem.from(exception);
