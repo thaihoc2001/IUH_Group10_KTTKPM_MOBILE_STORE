@@ -1,7 +1,7 @@
 package com.service.shopPhone.domain.quries.address;
 
 import com.service.shopPhone.entity.AddressEntity;
-import com.service.shopPhone.entity.UserEntity;
+
 import com.service.shopPhone.repository.AddressRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,15 +22,17 @@ public class AddressQuery {
         return addressRepository.searchAddress(searchText, pageable);
     }
 
-//    public Optional<AddressEntity> getAddressByUserId(UUID userid){
+//    public AddressEntity getAddressByUserId(UUID userid){
 //        UserEntity user = new UserEntity();
+//        user.setId(userid);
+//        return addressRepository.getAddressByUserId(user,true);
 //    }
 
-//    public Optional<AddressEntity> findByCity(String city){
-//        return addressRepository.findByCity(city);
-//    };
-//
-//    public Optional<AddressEntity> findByState(String state){
-//        return addressRepository.findByCity(state);
-//    };
+    public Optional<AddressEntity> findByCity(String city){
+        return addressRepository.findByCity(city);
+    };
+
+    public Optional<AddressEntity> findByState(String state){
+        return addressRepository.findByState(state);
+    };
 }

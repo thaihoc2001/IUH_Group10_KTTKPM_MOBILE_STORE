@@ -1,5 +1,7 @@
 package com.service.shopPhone.service.address;
 
+import com.service.shopPhone.domain.models.address.GetAddressByUserIdInputModel;
+import com.service.shopPhone.domain.models.address.GetAddressByUserIdResultModel;
 import com.service.shopPhone.domain.models.address.GetListAddressQueryModel;
 import com.service.shopPhone.domain.services.address.AddressDomainService;
 
@@ -58,5 +60,10 @@ public class AddressService implements IAddressService {
                 .id(RequestCorrelation.getRequestId())
                 .data(AddAddressResponseModel.builder().idAddress(result).build())
                 .build();
+    }
+
+    @Override
+    public Response<GetAddressByUserIdResultModel> getAddressByUserId(GetAddressByUserIdInputModel model) {
+        return null;
     }
 }
