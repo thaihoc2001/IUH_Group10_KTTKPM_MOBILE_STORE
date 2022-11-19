@@ -71,7 +71,9 @@ public class ProductService implements IProductService{
             ImageEntity image = imageDomainService.getMainByProduct(product.getId());
             ProductResponseModel item = modelMapper.map(product, ProductResponseModel.class);
             item.setBrandName(product.getBrand().getName());
-            item.setImageMain(image.getUrl());
+            if (image != null) {
+                item.setImageMain(image.getUrl());
+            }
             items.add(item);
         }
 
