@@ -6,6 +6,10 @@ const config = require('../config');
 const register = async (req, res) => {
     try {
         const { email, first_name, is_deleted = false, last_name, password, phone, username, role_id } = req.body;
+        const user = UserService.getUserByUsername(username);
+        if (user) {
+            return res.status(409).json({message: "username exists!"});
+        }
         const hashPassword = await bcrypt.hash(password, 10);
         const newUser = await UserService.createUser({
             email,
@@ -17,7 +21,7 @@ const register = async (req, res) => {
             username,
             role_id
         });
-        return res.status(200).json(newUser);
+        return res.status(200).json({success: true});
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal Server Error!" });
@@ -43,7 +47,17 @@ const login = async (req, res) => {
         return res.status(200).json({ accessToken: accessToken });
     } catch (err) {
         console.log(err);
-        return res.status(400).json(err);
+        return res.status(500).json({ message: "Internal Server Error!" });
+    }
+}
+
+const authentication = (req, res) => {
+    try {
+        const user = req.user;
+        return res.status(200).json({userId: user.id});
+    }catch(error) {
+        console.log(error);
+        return res.status(500).json({ message: "Internal Server Error!" });
     }
 }
 
@@ -58,5 +72,6 @@ const signAccessToken = (user_id, role_id) => {
 }
 module.exports = {
     register,
-    login
+    login,
+    authentication
 }
