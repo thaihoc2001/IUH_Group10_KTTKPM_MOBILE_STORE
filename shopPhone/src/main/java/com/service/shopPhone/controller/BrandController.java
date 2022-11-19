@@ -2,16 +2,11 @@ package com.service.shopPhone.controller;
 
 import javax.validation.Valid;
 
+import com.service.shopPhone.models.StatusResponseModel;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.service.shopPhone.models.Response;
 import com.service.shopPhone.models.brand.AddBrandRequestModel;
@@ -19,6 +14,8 @@ import com.service.shopPhone.models.brand.AddBrandResponseModel;
 import com.service.shopPhone.models.brand.GetAllBrandRequestModel;
 import com.service.shopPhone.models.brand.GetAllBrandResponseModel;
 import com.service.shopPhone.service.brand.IBrandService;
+
+import java.util.UUID;
 
 @CrossOrigin
 @RestController
@@ -44,5 +41,10 @@ public class BrandController {
     @PostMapping("")
     public Response<AddBrandResponseModel> addBrand(@Valid @RequestBody AddBrandRequestModel requestModel) {
         return brandService.addBrand(requestModel);
+    }
+
+    @PutMapping("/{brandId}")
+    public Response<StatusResponseModel> deleteBrand(@RequestBody AddBrandRequestModel requestModel, @PathVariable String brandId){
+        return brandService.deleteBrand(requestModel,UUID.fromString(brandId));
     }
 }

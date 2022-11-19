@@ -1,12 +1,14 @@
 package com.service.shopPhone.domain.quries.address;
 
 import com.service.shopPhone.entity.AddressEntity;
+import com.service.shopPhone.entity.UserEntity;
 import com.service.shopPhone.repository.AddressRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AddressQuery {
@@ -20,11 +22,15 @@ public class AddressQuery {
         return addressRepository.searchAddress(searchText, pageable);
     }
 
-    public Optional<AddressEntity> findByCity(String city){
-        return addressRepository.findByCity(city);
-    };
+//    public Optional<AddressEntity> getAddressByUserId(UUID userid){
+//        UserEntity user = new UserEntity();
+//    }
 
-    public Optional<AddressEntity> findByState(String state){
-        return addressRepository.findByCity(state);
-    };
+//    public Optional<AddressEntity> findByCity(String city){
+//        return addressRepository.findByCity(city);
+//    };
+//
+//    public Optional<AddressEntity> findByState(String state){
+//        return addressRepository.findByCity(state);
+//    };
 }

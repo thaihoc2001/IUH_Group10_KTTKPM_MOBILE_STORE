@@ -18,4 +18,7 @@ public interface AddressRepository extends JpaRepository<AddressEntity, UUID>{
     AddressEntity findByUserAndIsActive(UserEntity user, Boolean isActive);
 
 
+    Page<AddressEntity> searchAddress(String searchText, Pageable pageable);
+
+    Optional<AddressEntity> getAddressByUserId(UserEntity user, Boolean isActive);
 }

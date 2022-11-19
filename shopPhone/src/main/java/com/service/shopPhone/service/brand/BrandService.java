@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.service.shopPhone.domain.models.brand.DeleteBrandCommandInputModel;
+import com.service.shopPhone.models.StatusResponseModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -66,5 +68,15 @@ public class BrandService implements IBrandService{
             .data(AddBrandResponseModel.builder().brandId(result).build())
             .build();
     }
-    
+
+    @Override
+    public Response<StatusResponseModel> deleteBrand(AddBrandRequestModel requestModel, UUID brandId){
+        DeleteBrandCommandInputModel inputModel = modelMapper.map(requestModel, DeleteBrandCommandInputModel.class);
+        inputModel.setBrandId(brandId);
+        boolean success = brandDomainService.deleteBrand(inputModel);
+        return Response.<StatusResponseModel>builder()
+                .id(RequestCorrelation.getRequestId())
+                .data(StatusResponseModel.builder().success(success).build())
+                .build();
+    }
 }
