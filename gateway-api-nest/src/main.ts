@@ -7,8 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   const config = new DocumentBuilder()
-  .setTitle('chat bot api')
-  .setDescription('')
+  .setTitle('micro service shop phone Nhom 10')
+  .setDescription('api gateway')
   .setVersion('1.0')
   .addBearerAuth()
   .build();
