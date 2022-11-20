@@ -41,4 +41,14 @@ export class ProductService {
         const url = `${environment.API_Service_Spring_Boot}/products/${productId}`;
         return await this.httpService.get(url).toPromise();
     }
+
+    async deleteProductById(apiKey: string,productId: string) {
+        const url = `${environment.API_Service_Spring_Boot}/products/${productId}`;
+        return await this.httpService.delete(url, {
+            headers: {
+                'X-API-Key': apiKey,
+                'Content-Type': 'application/json'
+            }
+        }).toPromise();
+    }
 }

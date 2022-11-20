@@ -1,8 +1,12 @@
 package com.service.shopPhone.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.validation.Valid;
 
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,8 +76,12 @@ public class ProductController {
         return productService.getAll(requestModel);
     }
 
-    @DeleteMapping("")
-    public Response<StatusResponseModel> deleteProducts(@RequestBody DeleteProductRequestModel requestModel){
+    @DeleteMapping("/{id}")
+    public Response<StatusResponseModel> deleteProducts(@Valid @PathVariable UUID id){
+        DeleteProductRequestModel requestModel = new DeleteProductRequestModel();
+        List<UUID> list= new ArrayList<>();
+        list.add(id);
+        requestModel.setArrayProductId(list);
         return productService.deleteProduct(requestModel);
     }
 

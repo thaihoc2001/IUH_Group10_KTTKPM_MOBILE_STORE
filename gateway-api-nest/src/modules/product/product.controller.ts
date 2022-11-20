@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query, Req, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, Res } from "@nestjs/common";
 import { ApiBearerAuth, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Request, Response } from "express";
 import { CreateProductRequestModel, ProductFilters, ResponseModel } from "src/dto";
@@ -21,7 +21,7 @@ export class ProductController {
         const token = req.headers.authorization.split(" ")[1];
         const auth = await this.authService.authentication(token);
         const data = await this.productService.createProduct(auth.data.userId, product);
-        return res.status(200).json(data.data);
+        return res.status(data.status).json(data.data);
     }
 
     @ApiResponse({
@@ -31,7 +31,7 @@ export class ProductController {
     @Get('')
     async getAllProduct(@Req() req: Request, @Res() res: Response, @Query() filters: ProductFilters) {
         const data = await this.productService.getAllProduct(filters);
-        return res.status(200).json(data.data);
+        return res.status(data.status).json(data.data);
     }
 
     @ApiResponse({
@@ -43,13 +43,20 @@ export class ProductController {
         const token = req.headers.authorization.split(" ")[1];
         const auth = await this.authService.authentication(token);
         const data = await this.productService.updateProduct(auth.data.userId, product);
-        return res.status(200).json(data.data);
+        return res.status(data.status).json(data.data);
     }
 
     @Get(':id')
     async getProductById(@Req() req: Request, @Res() res: Response, @Param('id') id: string) {
         const data = await this.productService.getByProductId(id);
-        return res.status(200).json(data.data);
+        return res.status(data.status).json(data.data);
     }
 
+    @Delete(':id')
+    async deleteProductById(@Req() req: Request, @Res() res: Response, @Param('id') id: string) {
+        const token = req.headers.authorization.split(" ")[1];
+        const auth = await this.authService.authentication(token);
+        const data = await this.productService.deleteProductById(auth.data.userId,id);
+        return res.status(data.status).json(data.data);
+    }
 }
