@@ -1,5 +1,8 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
+import { AuthService } from '../auth/auth.service';
+import { ImageController } from './image.controller';
+import { ImageService } from './image.service';
 
 @Module({
     imports: [
@@ -8,8 +11,8 @@ import { Module } from '@nestjs/common';
             maxRedirects: 5,
         }),
     ],
-    controllers: [],
-    providers: [],
+    controllers: [ImageController],
+    providers: [AuthService, ImageService],
     exports: []
 })
 export class ImageModule {}
