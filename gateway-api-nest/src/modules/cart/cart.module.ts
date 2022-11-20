@@ -1,5 +1,8 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
+import { AuthService } from '../auth/auth.service';
+import { CartController } from './cart.controller';
+import { CartService } from './cart.service';
 
 @Module({
     imports: [
@@ -8,8 +11,8 @@ import { Module } from '@nestjs/common';
             maxRedirects: 5,
         }),
     ],
-    controllers: [],
-    providers: [],
+    controllers: [CartController],
+    providers: [CartService, AuthService],
     exports: []
 })
 export class CartModule {}
