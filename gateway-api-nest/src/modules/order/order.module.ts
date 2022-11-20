@@ -1,5 +1,8 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
+import { AuthService } from '../auth/auth.service';
+import { OrderController } from './order.controller';
+import { OrderService } from './order.service';
 
 @Module({
     imports: [
@@ -8,8 +11,8 @@ import { Module } from '@nestjs/common';
             maxRedirects: 5,
         }),
     ],
-    controllers: [],
-    providers: [],
+    controllers: [OrderController],
+    providers: [OrderService, AuthService],
     exports: []
 })
 export class OrderModule {}
