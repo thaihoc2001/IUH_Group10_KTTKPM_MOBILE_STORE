@@ -5,8 +5,8 @@ const config = require('../config');
 
 const register = async (req, res) => {
     try {
-        const { email, first_name, is_deleted = false, last_name, password, phone, username, role_id } = req.body;
-        const user = UserService.getUserByUsername(username);
+        const { email, first_name, is_deleted = false, last_name, password, phone, username, role_id = '3207bbc2-99b5-46ca-8723-bfc236ada980'} = req.body;
+        const user = await UserService.getUserByUsername(username);
         if (user) {
             return res.status(409).json({message: "username exists!"});
         }

@@ -1,7 +1,8 @@
-import { Controller, Get, HttpStatus,Query, Req, Res, UseGuards } from "@nestjs/common";
+import { Controller, Get, HttpStatus,Param,Query, Req, Res, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Request, Response } from "express";
 import { Observable } from "rxjs";
+import { ResponseModel } from "src/dto";
 
 import { UserService } from "./user.service";
 
@@ -11,14 +12,36 @@ import { UserService } from "./user.service";
 export class UserController {
     constructor(private userService: UserService){}
 
-    @Get('/me')
-    async getUserDeltail(@Req() req: Request, @Res() res: Response) {
+    @ApiResponse({
+        type: ResponseModel,
+        isArray: false
+    })
+    @Get(':id')
+    async getUserDeltail(@Req() req: Request, @Res() res: Response, @Param('id') id: string) {
         const token = req.headers.authorization;
-        console.log(token);
-        console.log("dsdsdsdsds");
-        
-        
-        const data =  await this.userService.findUserByUserId();
-        return res.status(200).json(data.data);
+        const data =  await this.userService.findUserByUserId(token,id);
+        return res.status(data.status).json(data.data);
+    }
+    
+    @ApiResponse({
+        type: ResponseModel,
+        isArray: false
+    })
+    @Get('')
+    async getUserAll(@Req() req: Request, @Res() res: Response) {
+        const token = req.headers.authorization;
+        const data =  await this.userService.getAll(token);
+        return res.status(data.status).json(data.data);
+    }
+
+    @ApiResponse({
+        type: ResponseModel,
+        isArray: false
+    })
+    @Get('/user/profile')
+    async getProfile(@Req() req: Request, @Res() res: Response) {
+        const token = req.headers.authorization;
+        const data =  await this.userService.getProfile(token);
+        return res.status(data.status).json(data.data);
     }
 }

@@ -5,7 +5,7 @@ const { AuthMiddleware } = require('../middelware');
 const {UserController} = require('../controllers');
 
 router.get('/', AuthMiddleware.isAuthenticated, UserController.getAllUsers);
-router.get('/me', AuthMiddleware.isAuthenticated, UserController.getMe);
+router.get('/user/me', AuthMiddleware.isAuthenticated, UserController.getMe);
 router.get('/:userId', UserController.getUser);
 router.put('/:userId', AuthMiddleware.isAuthenticated, UserController.updateUser);
 
