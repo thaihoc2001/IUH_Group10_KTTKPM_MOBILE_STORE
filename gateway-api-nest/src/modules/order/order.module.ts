@@ -1,5 +1,6 @@
 import { HttpModule } from '@nestjs/axios';
-import { Module } from '@nestjs/common';
+import { CacheInterceptor, Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AuthService } from '../auth/auth.service';
 import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
@@ -12,7 +13,12 @@ import { OrderService } from './order.service';
         }),
     ],
     controllers: [OrderController],
-    providers: [OrderService, AuthService],
+    providers: [OrderService, AuthService, 
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: CacheInterceptor,
+        },
+    ],
     exports: []
 })
 export class OrderModule {}

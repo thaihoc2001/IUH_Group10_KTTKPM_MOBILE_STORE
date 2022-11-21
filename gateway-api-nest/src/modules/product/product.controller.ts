@@ -1,16 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, Res } from "@nestjs/common";
+import { Body, CacheInterceptor, CacheKey, CacheTTL, CACHE_MANAGER, Controller, Delete, Get, Inject, Param, Post, Put, Query, Req, Res, UseInterceptors } from "@nestjs/common";
 import { ApiBearerAuth, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Request, Response } from "express";
 import { CreateProductRequestModel, ProductFilters, ResponseModel } from "src/dto";
 import { AuthService } from "../auth/auth.service";
 import { ProductService } from "./product.service";
+import { Cache } from "cache-manager";
 
 
 @ApiBearerAuth()
 @ApiTags('api/products')
 @Controller('api/products')
 export class ProductController {
-    constructor(private authService: AuthService, private productService: ProductService) {}
+    constructor(private authService: AuthService, private productService: ProductService, @Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
     @ApiResponse({
         type: ResponseModel,
@@ -30,7 +31,13 @@ export class ProductController {
     })
     @Get('')
     async getAllProduct(@Req() req: Request, @Res() res: Response, @Query() filters: ProductFilters) {
+        const products = await this.cacheManager.get(
+            "product_key"
+        );
+        
+        if (products) return res.status(200).json(products);
         const data = await this.productService.getAllProduct(filters);
+        this.cacheManager.set("product_key", data.data, 6000);
         return res.status(data.status).json(data.data);
     }
 
@@ -48,7 +55,12 @@ export class ProductController {
 
     @Get(':id')
     async getProductById(@Req() req: Request, @Res() res: Response, @Param('id') id: string) {
+        const product = await this.cacheManager.get(
+            id.toString()
+        );
+        if (product) return res.status(200).json(product);
         const data = await this.productService.getByProductId(id);
+        this.cacheManager.set(id.toString(), data.data, 6000);
         return res.status(data.status).json(data.data);
     }
 

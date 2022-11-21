@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
+import { CacheModule, MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AuthenticationMiddleware } from './middleware/authentication.middleware';
 import { AuthModule } from './modules/auth/auth.module';
 import { BrandModule } from './modules/brand/brand.module';
@@ -7,9 +7,27 @@ import { ImageModule } from './modules/image/image.module';
 import { OrderModule } from './modules/order/order.module';
 import { ProductModule } from './modules/product/product.module';
 import { UserModule } from './modules/users/user.module';
+import type { RedisClientOptions } from "redis";
 
 @Module({
-  imports: [UserModule, AuthModule, ProductModule, ImageModule, OrderModule, CartModule, BrandModule],
+  imports: [
+    UserModule, 
+    AuthModule, 
+    ProductModule, 
+    ImageModule, 
+    OrderModule, 
+    CartModule, 
+    BrandModule,
+    CacheModule.register<RedisClientOptions>({
+      isGlobal: true,
+      database: 0,
+      password: 'r3d1sp4ssw0rd',
+      url: "redis://localhost:6379",
+      ttl: 6,
+      store: 'a',
+      
+    }),
+  ],
   controllers: [],
   providers: [],
 })

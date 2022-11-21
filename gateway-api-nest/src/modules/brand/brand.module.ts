@@ -1,5 +1,6 @@
 import { HttpModule } from '@nestjs/axios';
-import { Module } from '@nestjs/common';
+import { CacheInterceptor, Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AuthService } from '../auth/auth.service';
 import { BrandController } from './brand.controller';
 import { BrandService } from './brand.service';
@@ -13,7 +14,12 @@ import { BrandService } from './brand.service';
         }),
     ],
     controllers: [BrandController],
-    providers: [AuthService, BrandService],
+    providers: [AuthService, BrandService,
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: CacheInterceptor,
+        },
+    ],
     exports: []
 })
 export class BrandModule {}
