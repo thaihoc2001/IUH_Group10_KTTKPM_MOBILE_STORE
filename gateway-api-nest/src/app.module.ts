@@ -8,6 +8,7 @@ import { OrderModule } from './modules/order/order.module';
 import { ProductModule } from './modules/product/product.module';
 import { UserModule } from './modules/users/user.module';
 import type { RedisClientOptions } from "redis";
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -26,6 +27,10 @@ import type { RedisClientOptions } from "redis";
       ttl: 6,
       store: 'a',
       
+    }),
+    ThrottlerModule.forRoot({
+      ttl: 10,
+      limit: 5,
     }),
   ],
   controllers: [],

@@ -5,6 +5,7 @@ import { CreateProductRequestModel, ProductFilters, ResponseModel } from "src/dt
 import { AuthService } from "../auth/auth.service";
 import { ProductService } from "./product.service";
 import { Cache } from "cache-manager";
+import { SkipThrottle, Throttle } from "@nestjs/throttler";
 
 
 @ApiBearerAuth()
