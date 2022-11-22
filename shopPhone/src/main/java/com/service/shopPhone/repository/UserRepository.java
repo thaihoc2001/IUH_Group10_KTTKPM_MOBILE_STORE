@@ -13,7 +13,6 @@ import com.service.shopPhone.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, UUID>{
-    public UserEntity findByUserid(UUID userId);
     public UserEntity findByEmail(String email);
     public UserEntity findByUsername(String username);
     public List<UserEntity> findAllByRole(RoleEntity role);

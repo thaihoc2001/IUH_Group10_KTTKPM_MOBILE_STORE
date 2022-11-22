@@ -2,8 +2,6 @@ package com.service.shopPhone.domain.services.brand;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.service.shopPhone.domain.commands.brand.DeleteBrandCommand;
-import com.service.shopPhone.domain.models.brand.DeleteBrandCommandInputModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -24,13 +22,10 @@ public class BrandDomainService {
     private final BrandQuery brandQuery;
     private final AddBrandCommand addBrandCommand;
 
-    private final DeleteBrandCommand deleteBrandCommand;
-
     @Autowired
-    public BrandDomainService(BrandQuery brandQuery, AddBrandCommand addBrandCommand, DeleteBrandCommand deleteBrandCommand) {
+    public BrandDomainService(BrandQuery brandQuery, AddBrandCommand addBrandCommand) {
         this.brandQuery = brandQuery;
         this.addBrandCommand = addBrandCommand;
-        this.deleteBrandCommand = deleteBrandCommand;
     }
 
     public Page<BrandEntity> getAll(GetListBrandQueryModel model) {
@@ -49,7 +44,4 @@ public class BrandDomainService {
         return result.getBrandId();
     }
 
-    public boolean deleteBrand(DeleteBrandCommandInputModel input){
-        return deleteBrandCommand.execute(input).isSuccess();
-    }
 }
