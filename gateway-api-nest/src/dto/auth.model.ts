@@ -21,3 +21,8 @@ export class RegisterRequestModel {
     @ApiProperty()
     username: string;
 }
+
+export class RefreshTokenModel {
+    @ApiProperty()
+    token: string;
+}

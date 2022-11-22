@@ -1,7 +1,7 @@
 import { HttpService } from "@nestjs/axios";
 import { Injectable } from "@nestjs/common";
 import { environment } from "src/config/environment";
-import { LoginRequestModel, RegisterRequestModel } from "src/dto";
+import { LoginRequestModel, RefreshTokenModel, RegisterRequestModel } from "src/dto";
 
 @Injectable()
 export class AuthService {
@@ -32,5 +32,10 @@ export class AuthService {
                 'Content-Type': 'application/json'
             }
         }).toPromise();
+    }
+
+    async refreshToken(refreshTokenModel: RefreshTokenModel) {
+        const url =  `${environment.API_Service_Express}/auth/refresh-token`;
+        return await this.httpService.post(url, refreshTokenModel).toPromise();
     }
 }

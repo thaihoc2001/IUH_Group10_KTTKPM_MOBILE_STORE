@@ -40,6 +40,11 @@ export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthenticationMiddleware)
-      .forRoutes({ path: 'api/products', method: RequestMethod.POST });
+      .forRoutes(
+        { path: 'api/products', method: RequestMethod.POST },
+        { path: 'api/carts', method: RequestMethod.ALL},
+        { path: 'api/users', method: RequestMethod.ALL},
+        { path: 'api/orders', method: RequestMethod.ALL}
+      );
   }
 }
