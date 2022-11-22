@@ -1,5 +1,7 @@
 import { HttpModule } from '@nestjs/axios';
-import { Module } from '@nestjs/common';
+import { CacheInterceptor, Module } from '@nestjs/common';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { ThrottlerGuard } from '@nestjs/throttler';
 import { AuthService } from '../auth/auth.service';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
@@ -12,7 +14,16 @@ import { ProductService } from './product.service';
         }),
     ],
     controllers: [ProductController],
-    providers: [ProductService, AuthService],
+    providers: [ProductService, AuthService,
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: CacheInterceptor,
+        },
+        {
+            provide: APP_GUARD,
+            useClass: ThrottlerGuard
+        }
+    ],
     exports: []
 })
 export class ProductModule {}
