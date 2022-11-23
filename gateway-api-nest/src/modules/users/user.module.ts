@@ -1,5 +1,7 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard } from '@nestjs/throttler';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -11,7 +13,12 @@ import { UserService } from './user.service';
         }),
     ],
     controllers: [UserController],
-    providers: [UserService],
+    providers: [UserService,
+        {
+            provide: APP_GUARD,
+            useClass: ThrottlerGuard
+        }
+    ],
     exports: []
 })
 export class UserModule {}
